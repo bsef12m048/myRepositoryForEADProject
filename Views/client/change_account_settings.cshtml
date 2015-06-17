@@ -1,0 +1,25 @@
+﻿@section S2{
+
+    function showCommentBox(e,idOfCommentBox)
+    {
+        $("#"+idOfCommentBox).fadeToggle("fast");
+    }
+    
+    function getLikeCount(y,e){
+        $.getJSON("../client/likeMusic?id=" + y ,function (x) {
+            alert("liked");
+            e.target.innerHTML = "Like("+x+")";
+        });
+    }
+}
+<li class="list-group-item active" style="font-size:medium">Change Account Settings</li>
+<li class="list-group-item" style="font-size:medium">
+    <form class="form-group" action="/client/change_account_settings_done" method="post" enctype="multipart/form-data">
+        username<input placeholder="user name" type="text" class="form-control" id="client_username" name="ul.username"/><br />
+        password<input placeholder="password" type="password" class="form-control" id="client_password" name="ul.password"/><br />
+        Add pic<input type="file" class="form-control" id="client_pic" name="pic"/><br />
+        <button type="submit" class="btn btn-primary pull-right">Change</button><br />
+    </form>
+</li>
+            
+

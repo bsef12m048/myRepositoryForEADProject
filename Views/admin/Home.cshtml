@@ -1,0 +1,29 @@
+﻿<h1 class="page-header">
+Dashboard <small>Statistics Overview</small>
+</h1>
+<div>
+    <table>
+        <tr>
+            <td><h5 style="color:green">No of users logins :</h5></td>
+            <td>@ViewBag.user.Count </td>
+        </tr>
+        <tr>
+            <td><h5 style="color:red">count of music :</h5></td>
+            <td>@ViewBag.music.Count</td>
+        </tr>
+        <tr>
+            <td><h5 style="color:blue">highest rated music :</h5></td>
+            <td>@ViewBag.highRatedMusic</td>
+        </tr>
+        <tr>
+            <td><h5 style="color:yellowgreen">Count of music categories :</h5></td>
+            <td>@ViewBag.countOfMusicCategories</td>
+        </tr>
+    </table>
+    <center>
+        <h4 style="font-style:oblique">Graphical View of Client side</h4>
+    </center>
+    <div class="dashboard">
+        <img src="/Admin/getChart" alt="chart could not be loaded"/>
+    </div>
+</div>

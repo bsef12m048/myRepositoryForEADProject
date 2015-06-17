@@ -1,0 +1,115 @@
+﻿@RenderSection("model",false)
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Welcome Home</title>
+    <script src="../../Scripts/jquery-2.1.4.js" type="text/javascript"></script>
+    <script src="../../Scripts/bootstrap.js" type="text/javascript"></script>
+    <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <script src="../../Scripts/jQuery.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/jQuery-ui.min.js" type="text/javascript"></script>
+    <link href="../../Content/jQuery-ui.css" rel="stylesheet" />
+    <script>
+        $(document).ready(f1);
+        function f1() {
+            $("#slider").load("/Slider/page_slider");
+
+            $.getJSON("/home/AutocompleteValuesForSearch", function (x) {
+                $("#search").autocomplete({ source: x });
+            });
+
+            @RenderSection("login_signup", false)
+            @RenderSection("logout", false)
+            @RenderSection("signup", false)
+        }
+
+        @RenderSection("f2", false)
+
+        function searchMusicBySingerName() {
+            var y = $("#singers").val();
+            $.getJSON("/client/searchResultsBySinger?singerName=" + y, function (listOfMusic) {
+                
+                //display searched music
+                $("#showResultsAndPlaylistBodyUl").remove();
+                var dataToAppend = "";
+                dataToAppend += "<ul class='list-group ' id='showResultsAndPlaylistBodyUl'>";
+                dataToAppend += "<li class='list-group-item active' style='font-size:medium'>Search Results</li>";
+
+                if (listOfMusic.length == 0) {
+                    dataToAppend += "<h5>No Results</h5>";
+                }
+                else {
+                    for (var i = 0 ; i < listOfMusic.length ; i++) {
+                        dataToAppend += "<li class='list-group-item' style='clear:both;float:none'>";
+                        dataToAppend += "<h3>" + listOfMusic[i].storagePath.split(/[./,_]+/)[3] + "</h3>";
+                        dataToAppend += "<audio controls>";
+                        dataToAppend += "<source src='" + listOfMusic[i].storagePath + "' type='audio/mpeg'>";
+                        dataToAppend += "</audio>";
+
+                        dataToAppend += "<nav class='navbar navbar-default' role='navigation'>";
+                        dataToAppend += "<div class='navbar-form pull-right'>";
+                        dataToAppend += "<form method='get' action='" + listOfMusic[i].storagePath + "' class='navbar-nav' style='margin-right:3px'>";
+                        dataToAppend += "<button class='btn btn-warning' id='download'>Download</button>";
+                        dataToAppend += "</form>"
+
+                        dataToAppend += "<button class='navbar-nav btn btn-info' onclick='getLikeCount(" + listOfMusic[i].Id + ",event)'>Like(" + listOfMusic[i].likeCount + ")</button>";
+
+                        dataToAppend += "<form method='post' action='/client/addToPlaylist?id=" + listOfMusic[i].Id + "' class='navbar-nav' style='margin-right:3px'>";
+                        dataToAppend += "<button class='btn btn-danger' id='addToPlaylist' type='submit'>Add to playlist</button>";
+                        dataToAppend += "</form>";
+                        dataToAppend += "<button class='btn btn-success navbar-nav comment' onclick='showCommentBox(event," + listOfMusic[i].Id + ")'>Comment</button>";
+                        dataToAppend += "</div>";
+                        dataToAppend += "</nav>";
+                        dataToAppend += "<form method='post' action='/home/comment_text?id=" + listOfMusic[i].Id + "' class='form-group comment_text_form' hidden=hidden' ";
+                        dataToAppend += "id='" + listOfMusic[i].Id + "'>";
+                        dataToAppend += "<div class='form-group'>";
+                        dataToAppend += "<input class='form-control' placeholder='comment' name='comment_text' id='comment_text'/>";
+                        dataToAppend += "</div>";
+                        dataToAppend += "<button type='submit' class='btn btn-danger' id='btn_comment_text'>Submit</button>";
+                        dataToAppend += "</form>";
+                        dataToAppend += "</li>";
+                    }
+                    dataToAppend += "</ul>";
+                }
+                $("#showResultsAndPlaylistBody").append(dataToAppend);
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <label class="navbar-brand">Music Paradise</label>
+        </div>
+        @RenderSection("searchResults", false)
+        
+            <div class="form-group">
+                @Html.TextBox("musicsearch",null, new { id = "search", placeholder = "Search", @class = "form-control" })
+            </div>
+            @RenderSection("music_category", false)
+            <button type="submit" class="btn btn-danger" id="btn_search">Search</button>
+        @{Html.EndForm();}
+        
+        @RenderSection("searchBySinger", false)
+        <div class="pull-right navbar-form">
+            @RenderSection("upload_btn",false)
+            @Html.TextBox("upload-file", null, new {type="file", @class="navbar-nav btn btn-primary", style="margin-right:3px", id="upload-file"})
+                <button class="btn btn-success" id="upload">Upload</button>
+            @{Html.EndForm();}
+           @RenderSection("navbar_btns", false)
+        </div>
+    </nav>
+
+    @RenderSection("signin_info", false)
+
+    <div id="slider">
+    </div>
+
+    @RenderSection("below_slider", false)
+        
+    <footer class="modal-footer" style="font-size:medium">&copy; copyright 2015</footer>
+</body>
+</html>
+

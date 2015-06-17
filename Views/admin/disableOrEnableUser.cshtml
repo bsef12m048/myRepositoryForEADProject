@@ -1,0 +1,26 @@
+﻿<h1 class="page-header">
+    Disable/Enable User account
+</h1>
+<div class="row" style="margin: 10px">
+    <div class="col-md-9">
+        <ul class="list-group ">
+            <li class="list-group-item" style="font-size:medium">
+                <form method="post" action="/admin/disableuseraccount" class="form-group" role="search">
+                    Enter user name:<div class="form-group">
+                                    <input class="form-control" placeholder="user name" name="username" id="usernametobedisabled"/>
+                                </div>
+                    <button class="btn btn-success" id="disable">Disable</button>
+                </form>
+            </li>
+
+            <li class="list-group-item" style="font-size:medium">
+                <form method="post" action="/admin/enableuseraccount" class="form-group" role="search">
+                    Enter user name:<div class="form-group">
+                                    <input class="form-control" placeholder="user name" name="username" id="usernametobeenabled"/>
+                                </div>
+                    <button class="btn btn-success" id="enable">Enable</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>

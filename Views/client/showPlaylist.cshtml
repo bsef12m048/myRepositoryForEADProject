@@ -1,0 +1,43 @@
+﻿@section S3{
+    @model List<FinalProject_EAD.Models.music>
+}
+@section S2{
+
+    function showCommentBox(e,idOfCommentBox)
+    {
+        $("#"+idOfCommentBox).fadeToggle("fast");
+    }
+    
+    function getLikeCount(y,e){
+        $.getJSON("../client/likeMusic?id=" + y ,function (x) {
+            alert("liked");
+            e.target.innerHTML = "Like("+x+")";
+        });
+    }
+}
+<li class="list-group-item active" style="font-size:medium">Playlist</li>
+@if(Model.Count == 0)
+{
+    <h5>No item exist in playlist</h5>
+}
+else
+{
+    foreach (FinalProject_EAD.Models.music x in Model)
+    {
+        <li class="list-group-item " style="clear:both;float:none">
+            <h3>@x.storagePath.Split(new char[] { '.','/','_'})[3]</h3>
+            <audio controls>
+                <source src="@x.storagePath" type="audio/mpeg">
+            </audio>
+                         
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-form pull-right">
+                    <form method="post" action="deleteMusicFromPlaylist?id=@x.Id" class="form-group">
+                        <button class="btn btn-danger" id="delete" type="submit">Delete</button>
+                    </form>
+                </div>
+            </nav>
+        </li>
+    }
+}
+

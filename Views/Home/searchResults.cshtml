@@ -1,0 +1,131 @@
+﻿@section model{
+    @model List<FinalProject_EAD.Models.music>
+}
+
+@section signin_info{
+    @if (Session["user"] != null)
+    {
+        <h4 style="color:red;text-align:right;padding-right:3%">@(((FinalProject_EAD.Models.userLogin)Session["user"]).username) is signed in</h4> 
+        <h6 style="color:green;text-align:right;padding-right:3%">You cannot sign up without logout</h6>
+    }
+}
+
+@section upload_btn{
+    @{Html.BeginForm("upload", "home", FormMethod.Post, new { @class = "navbar-nav form-group", style = "margin-right:3px", enctype = "multipart/form-data" });}
+}
+
+@section login_signup{
+    $("#login").click(function () { window.location.assign("/home/signin") });
+
+    $("#signup").click(function () { window.location.assign("/home/signup") });
+}
+
+@section f2{
+
+    function showCommentBox(e,idOfCommentBox)
+    {
+        $("#"+idOfCommentBox).fadeToggle("fast");
+    }
+
+    function viewAllComments(idOfCommentList)
+    {
+        $("#"+idOfCommentList).fadeToggle("fast");
+    }
+
+    function getLikeCount(y,e){
+        $.getJSON("../client/likeMusic?id=" + y ,function (x) {
+            alert("liked");
+            e.target.innerHTML = "Like("+x+")";
+        });
+    }
+}
+
+@section searchResults{
+    @{Html.BeginForm("searchResults", "home", FormMethod.Post, new {@class="navbar-form navbar-left", role="search"});}
+}
+
+@section navbar_btns{
+    <button class="btn btn-warning" id="signup">Sign up</button>
+    <button class="btn btn-danger" id="login">Login</button>
+}
+
+@section below_slider{
+    <div class="row" style="margin: 10px">
+        <div class="col-md-3">
+            <ul class="list-group ">
+                <li class="list-group-item active" style="font-size:medium">Administrator</li>
+                <li class="list-group-item" style="font-size:medium">
+                    @{Html.BeginForm("home", "admin", FormMethod.Post, new { @class = "form-group" });}
+                        username @Html.TextBox("al.username",null,new{placeholder="user name" ,type="text", @class="form-control", id="admin_username"})<br />
+                        password @Html.TextBox("al.password",null,new{placeholder="password" ,type="password", @class="form-control", id="admin_password"})<br />
+                        <button type="submit" class="btn btn-primary pull-right">login</button><br />
+                    @{Html.EndForm();}
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <ul class="list-group ">
+                <li class="list-group-item active" style="font-size:medium">Search Results</li>
+                @{if(Model.Count == 0)
+                {
+                    <h5>No Results</h5>
+                }
+                else{
+                    foreach (FinalProject_EAD.Models.music x in Model)
+                    {
+                        <li class="list-group-item " style="clear:both;float:none">
+                            <h3>@x.storagePath.Split(new char[] { '.', '/', '_' })[3]</h3>
+                            <audio controls>
+                                <source src="@x.storagePath" type="audio/mpeg">
+                            </audio>
+                         
+                            <nav class="navbar navbar-default" role="navigation">
+                                <div class="navbar-form pull-right">
+                                    <form method="get" action="@x.storagePath" class="navbar-nav" style="margin-right:3px">
+                                        <button class="btn btn-warning" id="download">Download</button>
+                                    </form>
+
+                                    <button class="navbar-nav btn btn-info" onclick="getLikeCount(@x.Id,event)">Like(@x.likeCount)</button>
+                                    
+                                    <form method="post" action="../client/addToPlaylist?id=@x.Id" class="navbar-nav" style="margin-right:3px">
+                                        <button class="btn btn-danger" id="addToPlaylist">Add to playlist</button>
+                                    @{Html.EndForm();}
+                                    <button class="btn btn-success comment" id="comment" onclick="showCommentBox(event,@x.Id)">Comment</button>
+                                </div>
+                            </nav>
+
+                            <form method="post" action="/home/comment_text?id=@x.Id" class="form-group comment_text_form" hidden="hidden"
+                            id="@x.Id">
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="comment" name="comment_text" id="comment_text"/>
+                                </div>
+                                <button type="submit" class="btn btn-danger" id="btn_comment_text">Submit</button>
+                                @{string viewAllCommentsId = "viewAllComments"+ x.Id;            
+                                <button type="button" class="btn btn-primary view_all_comments" onclick="viewAllComments('@viewAllCommentsId')">View all comments</button><br/><br/>
+                                <ul class="all_comments list-group" hidden="hidden" id="@viewAllCommentsId" style="background-color:red;">
+                                    @{
+                                    List<FinalProject_EAD.Models.comment> c = ViewBag.comments;
+                                    List<FinalProject_EAD.Models.comment> required = c.Where(y=>y.musicId == @x.Id).ToList();
+                                        if(required.Count == 0)
+                                        {
+                                            <li class="list-group-item"  style="background-color:skyblue"><h5>No comments</h5></li>
+                                        }
+                                        else{
+                                            for (int i = 0; i < required.Count && i < 3; i++)
+                                            {
+                                                <li class="list-group-item"  style="background-color:orange"><h5>@required[i].description</h5></li>
+                                            }
+                                        }
+                                    }
+                               `</ul>
+                                }
+                            </form>
+                       </li>
+                    }
+                }
+                }
+            </ul>
+        </div>
+    </div>
+}
+

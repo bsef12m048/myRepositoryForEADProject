@@ -1,0 +1,47 @@
+﻿@section S1{
+@model List<string>
+}
+<h1 class="page-header">
+Update Music Categories
+</h1>
+<div class="row" style="margin: 10px">
+    <div class="col-md-9">
+        <ul class="list-group ">
+            <li class="list-group-item" style="font-size:medium">
+                <form method="post" action="/admin/addcategory" class="form-group" role="search">
+                    Add Category:<div class="form-group">
+                                    <input class="form-control" placeholder="category" name="musiccategory" id="musiccategory"/>
+                                </div>
+                    <button class="btn btn-success" id="add_category">Add category</button>
+                </form>
+            </li>
+            <li class="list-group-item" style="font-size:medium">
+                <form method="post" action="/admin/deletemusicbasedoncategory" class="form-group" role="search">
+                    delete music of Category:<select name="category" class="btn btn-default">
+                                                @foreach (string s in Model)
+                                                {
+                                                    <option>@s</option> 
+                                                }
+                                            </select>
+                    <button class="btn btn-danger" id="deletemusicbasedoncategory">Delete music based on category</button>
+                </form>
+            </li>
+            <li class="list-group-item" style="font-size:medium">
+                <form method="post" action="/admin/deletemusicbasedonsinger" class="form-group" role="search">
+                    delete music of singer:<div class="form-group">
+                                    <input class="form-control" placeholder="singer" name="singer" id="singer"/>
+                                </div>
+                    <button class="btn btn-danger" id="deletemusicbasedonsinger">delete</button>
+                </form>
+            </li>
+            <li class="list-group-item" style="font-size:medium">
+                <form method="post" action="/admin/deletemusicbasedonalbum" class="form-group" role="search">
+                    delete music of album:<div class="form-group">
+                                    <input class="form-control" placeholder="album" name="album" id="album"/>
+                                </div>
+                    <button class="btn btn-danger" id="deletemusicbasedonalbum">delete</button>
+                </form>
+            </li>
+         </ul>
+    </div>
+</div>

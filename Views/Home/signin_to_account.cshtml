@@ -1,0 +1,94 @@
+﻿@section model{
+    @model FinalProject_EAD.Models.userLogin
+}
+
+@section f2{
+
+    function showCommentBox(e,idOfCommentBox)
+    {
+        $("#"+idOfCommentBox).fadeToggle("fast");
+    }
+
+    function getLikeCount(y,e){
+        $.getJSON("../../client/likeMusic?id=" + y ,function (x) {
+            alert("liked");
+            e.target.innerHTML = "Like("+x+")";
+        });
+    }
+}
+
+@section logout{
+    $("#logout").click(function () { window.location.assign("/client/logout") });
+    $("#btn_search_bySinger").click(searchMusicBySingerName);
+}
+
+@section music_category{
+    <select name="category" class="btn btn-default">
+        @foreach (string s in ViewBag.categories)
+        {
+            <option>@s</option> 
+        }
+    </select>
+}
+
+@section searchBySinger
+{
+    <div class="navbar-nav navbar-form navbar-left">
+        <select name="singers" class="btn btn-default" id="singers">
+            @foreach (string s in ViewBag.singers)
+            {
+                <option>@s</option> 
+            }
+        </select>
+        <button class="btn btn-danger" id="btn_search_bySinger">Search</button>
+    </div>
+}
+          
+@section navbar_btns{
+    <button class="btn btn-danger" id="logout">Logout</button>
+}
+
+@section searchResults{
+    @{Html.BeginForm("searchResults","client",FormMethod.Post,new{@class="navbar-form navbar-left", role="search"});}
+}
+
+@section below_slider{
+    <div class="row" style="margin: 10px">
+        <div class="col-md-3" id="userPic">
+            <center>
+                <img alt="pic not found" style="height:100px" src="../..@Model.picPath"/>
+            </center>
+
+            <center>
+                <div class="page-header" style="font-size:medium;color:red">
+                @Html.LabelFor(m => m.username,Model.username)
+                    </div>
+            </center>
+        </div>
+    </div>
+
+    <div class="row" style="margin: 10px">
+        <div class="col-md-3">
+            <ul class="list-group ">
+                <li class="list-group-item active" style="font-size:medium">Menu</li>
+                <li class="list-group-item" style="font-size:medium">
+                    @Html.ActionLink("Show Playlist","../client/showplaylist")
+                </li>
+                <li class="list-group-item" style="font-size:medium">
+                    @Html.ActionLink("Change account settings","../client/change_account_settings")
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9"  id="showResultsAndPlaylistBody">
+            <ul class="list-group "  id="showResultsAndPlaylistBodyUl">
+                <li class="list-group-item active" style="font-size:medium">Search Results</li>
+                <h5>No Results</h5>
+            </ul>
+        </div>
+    </div>
+}
+
+@section upload_btn{
+        @{Html.BeginForm("upload", "home", FormMethod.Post, new { @class = "navbar-nav form-group", style = "margin-right:3px", enctype = "multipart/form-data" });}
+}
+

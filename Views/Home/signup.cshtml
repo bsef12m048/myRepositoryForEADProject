@@ -1,0 +1,68 @@
+﻿@section upload_btn{
+    @{Html.BeginForm("upload", "home", FormMethod.Post, new {@class="navbar-nav form-group", style="margin-right:3px",enctype="multipart/form-data" });}
+}
+
+@section signin_info{
+    @if (Session["user"] != null)
+    {
+        <h4 style="color:red;text-align:right;padding-right:3%">@(((FinalProject_EAD.Models.userLogin)Session["user"]).username) is signed in</h4> 
+        <h6 style="color:green;text-align:right;padding-right:3%">You cannot sign up without logout</h6>
+    }
+}
+
+@section login_signup{
+    $("#login").click(function () { window.location.assign("/home/signin") });
+
+    $("#signup").click(function () { window.location.assign("/home/signup") });
+}
+
+@section navbar_btns{
+    <button class="btn btn-warning" id="signup">Sign up</button>
+    <button class="btn btn-danger" id="login">Login</button>
+}
+
+@section signup{
+    $("#client_username").blur(f3);
+    
+    $("#client_dob").datepicker();
+}
+
+@section f2{
+    function f3()
+    {
+        var name = $("#client_username").val();
+        $.getJSON("/home/checkUsernameForSignup?name="+name,function(x){
+            if(x == true)
+            {  
+                 $("#msg").text("username already exists");
+            }
+            else{
+                $("#msg").text("you can choose this username");
+            }
+        });
+    }
+}
+
+@section searchResults{
+    @{Html.BeginForm("searchResults", "home", FormMethod.Post, new {role="search", @class="navbar-form navbar-left"});}
+}
+        
+@section below_slider{
+    <div class="row" style="margin-left:25%;margin-top:2%">
+    <div class="col-md-6">
+        <ul class="list-group ">
+            <li class="list-group-item active" style="font-size:medium">Sign up</li>
+            <li class="list-group-item" style="font-size:medium">
+                @{Html.BeginForm("signup_to_account", "home", FormMethod.Post, new {@class="form-group", enctype="multipart/form-data"});}
+                    username<input placeholder="user name" type="text" class="form-control" id="client_username" name="ul.username"/><br />
+                    <h5 style="color:red" id="msg"></h5>
+                    password<input placeholder="password" type="password" class="form-control" id="client_password" name="ul.password"/><br />
+                    Add pic<input type="file" class="form-control" id="client_pic" name="pic"/><br />
+                    Date of birth<input class="form-control" id="client_dob" name="ul.dob"/><br />
+                    <button type="submit" class="btn btn-primary pull-right">Sign up</button><br />
+                @{Html.EndForm();}
+            </li>
+        </ul>
+    </div>
+    </div>
+}
