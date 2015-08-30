@@ -1,0 +1,49 @@
+﻿@section upload_btn{
+    @{Html.BeginForm("upload", "home", FormMethod.Post, new {@class="navbar-nav form-group", style="margin-right:3px",enctype="multipart/form-data" });}
+}
+
+@section signin_info{
+    @if (Session["user"] != null)
+    {
+        <h4 style="color:red;text-align:right;padding-right:3%">@(((FinalProject_EAD.Models.userLogin)Session["user"]).username) is signed in</h4> 
+        <h6 style="color:green;text-align:right;padding-right:3%">You cannot sign up without logout</h6>
+    }
+}
+@section login_signup{
+    $("#login").click(function () { window.location.assign("/home/signin") });
+
+    $("#signup").click(function () { window.location.assign("/home/signup") });
+}
+
+
+@section navbar_btns{
+    <button class="btn btn-warning" id="signup">Sign up</button>
+    <button class="btn btn-danger" id="login">Login</button>
+}
+
+@section searchResults{
+     @{Html.BeginForm("searchResults", "home", FormMethod.Post, new {@class="navbar-form navbar-left", role="search"});}
+}
+
+@section below_slider{
+    <div class="row" style="margin: 10px">
+        <div class="col-md-3">
+            <ul class="list-group ">
+                <li class="list-group-item active" style="font-size:medium">Administrator</li>
+                <li class="list-group-item" style="font-size:medium">
+                    @{Html.BeginForm("home", "admin", FormMethod.Post, new { @class = "form-group" });}
+                        username @Html.TextBox("al.username",null,new{placeholder="user name" ,type="text", @class="form-control", id="admin_username"})<br />
+                        password @Html.TextBox("al.password",null,new{placeholder="password" ,type="password", @class="form-control", id="admin_password"})<br />
+                        <button type="submit" class="btn btn-primary pull-right">login</button><br />
+                    @{Html.EndForm();}
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <ul class="list-group ">
+                <li class="list-group-item active" style="font-size:medium">Search Results</li>
+                <h5>No Results</h5>
+            </ul>
+        </div>
+    </div>
+} 

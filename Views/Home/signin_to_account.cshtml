@@ -14,7 +14,7 @@
             alert("liked");
             e.target.innerHTML = "Like("+x+")";
         });
-    }
+    } 
 }
 
 @section logout{
@@ -53,10 +53,11 @@
 }
 
 @section below_slider{
-    <div class="row" style="margin: 10px">
-        <div class="col-md-3" id="userPic">
+    <div class="row" style="margin-bottom: 10px;background-image:url('../../Content/data1/images/loginInfoImage.gif');border-style:groove;">
+        <div class="col-md-3" id="userPic" style="margin-top:1%;">
             <center>
-                <img alt="pic not found" style="height:100px" src="../..@Model.picPath"/>
+                <img alt="pic not found" style="height:100px;border-color:white;border:solid;border-radius:5px"
+                     src="../..@Model.picPath"/>
             </center>
 
             <center>

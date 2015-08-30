@@ -95,7 +95,6 @@
         @RenderSection("searchBySinger", false)
         <div class="pull-right navbar-form">
             @RenderSection("upload_btn",false)
-            @Html.TextBox("upload-file", null, new {type="file", @class="navbar-nav btn btn-primary", style="margin-right:3px", id="upload-file"})
                 <button class="btn btn-success" id="upload">Upload</button>
             @{Html.EndForm();}
            @RenderSection("navbar_btns", false)
@@ -103,6 +102,10 @@
     </nav>
 
     @RenderSection("signin_info", false)
+
+    <div style="height:5px;background-image:url('../../Content/data1/images/loginInfoImage.gif')">
+
+    </div>
 
     <div id="slider">
     </div>

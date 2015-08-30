@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Error";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error</title>
+</head>
+<body style="text-align:center;background-color:gray">
+    <script>
+        function close()
+        {
+            var str = "@ViewBag.message";
+            if(str.indexOf("session") > -1)
+            {
+                window.location.href="../home/welcomehome";
+            }
+            else{
+                window.history.back();
+            }
+        }
+        setTimeout("close()",3000);
+    </script>
+    <div style="background-color:aqua">
+        <h1>
+            Error
+        </h1>
+        <h2 style="color:red;">
+            @ViewBag.message
+        </h2>
+    </div>
+</body>
+</html>

@@ -107,19 +107,25 @@
         </div>
         <div class="pull-right navbar-form">
             <form class="navbar-nav form-group" style="margin-right:3px" action="/home/upload" method="post" enctype="multipart/form-data">
-                <input type="file" class="navbar-nav btn btn-primary" style="margin-right:3px" id="upload-file" name="upload-file"/>
                 <button class="btn btn-success" id="upload">Upload</button>
             </form>
             <button class="btn btn-danger" id="logout">Logout</button>
         </div>
     </nav>
 
+    <div style="height:5px;background-image:url('../../Content/data1/images/loginInfoImage.gif')">
+
+    </div>
+
     <div id="slider">
     </div>
-    <div class="row" style="margin: 10px">
-        <div class="col-md-3" id="userPic">
+
+    <div class="row" style="margin-bottom: 10px;background-image:url('../../Content/data1/images/loginInfoImage.gif');border-style:groove;">
+        <div class="col-md-3" id="userPic" style="margin-top:1%;">
             <center>
-                <img id="userPicImg" alt="pic not found" style="height:100px" src="../..@(((FinalProject_EAD.Models.userLogin)Session["user"]).picPath)"/>
+                <img id="userPicImg" alt="pic not found" 
+                    style="height:100px;border-color:white;border:solid;border-radius:5px" 
+                    src="../..@(((FinalProject_EAD.Models.userLogin)Session["user"]).picPath)"/>
             </center>
 
             <center>
