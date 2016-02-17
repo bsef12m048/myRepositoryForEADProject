@@ -51,10 +51,13 @@
                         dataToAppend += "<div class='navbar-form pull-right'>";
                         dataToAppend += "<form method='get' action='" + listOfMusic[i].storagePath + "' class='navbar-nav' style='margin-right:3px'>";
                         dataToAppend += "<button class='btn btn-warning' id='download'>Download</button>";
-                        dataToAppend += "</form>"
-
-                        dataToAppend += "<button class='navbar-nav btn btn-info' onclick='getLikeCount(" + listOfMusic[i].Id + ",event)'>Like(" + listOfMusic[i].likeCount + ")</button>";
-
+                        dataToAppend += "</form>";
+                        @if(Session["user"] != null)
+                        { 
+                            <text>
+                                dataToAppend += "<button class='navbar-nav btn btn-info' onclick='getLikeCount(" + listOfMusic[i].Id + ","+listOfMusic[i].likeCount+",event)'>Like(" + listOfMusic[i].likeCount + ")</button>";
+                            </text>
+                        }
                         dataToAppend += "<form method='post' action='/client/addToPlaylist?id=" + listOfMusic[i].Id + "' class='navbar-nav' style='margin-right:3px'>";
                         dataToAppend += "<button class='btn btn-danger' id='addToPlaylist' type='submit'>Add to playlist</button>";
                         dataToAppend += "</form>";
@@ -78,10 +81,10 @@
     </script>
 
 </head>
-<body>
+<body style="background-color: #F0FFF0; ">
     <nav class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
-            <label class="navbar-brand">Music Paradise</label>
+            <label class="navbar-brand" onclick="window.location.assign('/Home/welcomeHome')">Music Paradise</label>
         </div>
         @RenderSection("searchResults", false)
         
@@ -103,16 +106,12 @@
 
     @RenderSection("signin_info", false)
 
-    <div style="height:5px;background-image:url('../../Content/data1/images/loginInfoImage.gif')">
-
-    </div>
-
     <div id="slider">
     </div>
 
     @RenderSection("below_slider", false)
         
-    <footer class="modal-footer" style="font-size:medium">&copy; copyright 2015</footer>
+    <footer class="modal-footer" style="font-size: medium; background-color: #E6E6FA; ">&copy; copyright 2015</footer>
 </body>
 </html>
 

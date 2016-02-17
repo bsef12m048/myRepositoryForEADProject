@@ -28,17 +28,27 @@ Update Music Categories
             </li>
             <li class="list-group-item" style="font-size:medium">
                 <form method="post" action="/admin/deletemusicbasedonsinger" class="form-group" role="search">
-                    delete music of singer:<div class="form-group">
-                                    <input class="form-control" placeholder="singer" name="singer" id="singer"/>
-                                </div>
+                    delete music of singer:<select name="singer" class="btn btn-default" id="singer">
+                                                @{
+                                                    foreach (string s in ViewBag.singers)
+                                                    {
+                                                        <option>@s</option>
+                                                    }
+                                                }
+                                            </select>
                     <button class="btn btn-danger" id="deletemusicbasedonsinger">delete</button>
                 </form>
             </li>
             <li class="list-group-item" style="font-size:medium">
                 <form method="post" action="/admin/deletemusicbasedonalbum" class="form-group" role="search">
-                    delete music of album:<div class="form-group">
-                                    <input class="form-control" placeholder="album" name="album" id="album"/>
-                                </div>
+                    delete music of album:<select name="album" class="btn btn-default" id="album">
+                                            @{List<string> albums = ViewBag.albums;
+                                                foreach (string s in albums)
+                                                {
+                                                    <option>@s</option>
+                                                }
+                                            }
+                                        </select>
                     <button class="btn btn-danger" id="deletemusicbasedonalbum">delete</button>
                 </form>
             </li>

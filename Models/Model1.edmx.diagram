@@ -4,14 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8b75985c12e84cd0b657c0dbb80ff2f7" Name="Diagram1">
-        <EntityTypeShape EntityType="finalProjectDBModel.adminLogin" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="finalProjectDBModel.comment" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="finalProjectDBModel.music" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="finalProjectDBModel.musicCategory" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="finalProjectDBModel.playlist" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="finalProjectDBModel.userLogin" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+      <Diagram DiagramId="69a9c6891207411fa35c5f76a6d72e5f" Name="Diagram1">
+        <EntityTypeShape EntityType="finalProjectDBModel.adminLogin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="finalProjectDBModel.comment" Width="1.5" PointX="8.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="finalProjectDBModel.likeTable" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="finalProjectDBModel.music" Width="1.5" PointX="6" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="finalProjectDBModel.musicCategory" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="finalProjectDBModel.playlist" Width="1.5" PointX="8.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="finalProjectDBModel.userLogin" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
         <AssociationConnector Association="finalProjectDBModel.FK_comment_music" ManuallyRouted="false" />
+        <AssociationConnector Association="finalProjectDBModel.FK_likeTable_music" ManuallyRouted="false" />
+        <AssociationConnector Association="finalProjectDBModel.FK_likeTable_userLogin" ManuallyRouted="false" />
         <AssociationConnector Association="finalProjectDBModel.FK_music_musicCategory" ManuallyRouted="false" />
         <AssociationConnector Association="finalProjectDBModel.FK_music_userLogin" ManuallyRouted="false" />
         <AssociationConnector Association="finalProjectDBModel.FK_playlist_music" ManuallyRouted="false" />

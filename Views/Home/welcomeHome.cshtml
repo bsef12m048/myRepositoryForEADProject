@@ -9,16 +9,30 @@
         <h6 style="color:green;text-align:right;padding-right:3%">You cannot sign up without logout</h6>
     }
 }
-@section login_signup{
-    $("#login").click(function () { window.location.assign("/home/signin") });
 
+@section login_signup{
+    @if (Session["user"] == null)
+    {
+        @:$("#login").click(function () { window.location.assign("/home/signin") });
+    }
+    else
+    {
+        @:$("#logout").click(function () { window.location.assign("/client/logout") });
+    }
     $("#signup").click(function () { window.location.assign("/home/signup") });
 }
 
 
 @section navbar_btns{
     <button class="btn btn-warning" id="signup">Sign up</button>
-    <button class="btn btn-danger" id="login">Login</button>
+    @if (Session["user"] == null)
+    {
+        <button class="btn btn-danger" id="login">Login</button>
+    }
+    else
+    {
+        <button class="btn btn-danger" id="logout">Logout</button>
+    }
 }
 
 @section searchResults{

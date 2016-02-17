@@ -15,8 +15,12 @@
 }
 
 @section login_signup{
-    $("#login").click(function () { window.location.assign("/home/signin") });
-
+    @if (Session["user"] == null){
+        @:$("#login").click(function () { window.location.assign("/home/signin") });
+    }
+    else{
+        @:$("#logout").click(function () { window.location.assign("/client/logout") });
+    }
     $("#signup").click(function () { window.location.assign("/home/signup") });
 }
 
@@ -32,9 +36,12 @@
         $("#"+idOfCommentList).fadeToggle("fast");
     }
 
-    function getLikeCount(y,e){
+    function getLikeCount(y,likeCount,e){
         $.getJSON("../client/likeMusic?id=" + y ,function (x) {
-            alert("liked");
+            if(likeCount != x)
+                alert("liked");
+            else
+                alert("you have already liked");
             e.target.innerHTML = "Like("+x+")";
         });
     }
@@ -46,7 +53,14 @@
 
 @section navbar_btns{
     <button class="btn btn-warning" id="signup">Sign up</button>
-    <button class="btn btn-danger" id="login">Login</button>
+    @if(Session["user"] == null)
+    {
+        <button class="btn btn-danger" id="login">Login</button>
+    }
+    else
+    {
+        <button class="btn btn-danger" id="logout">Logout</button>
+    }
 }
 
 @section below_slider{
@@ -85,7 +99,9 @@
                                         <button class="btn btn-warning" id="download">Download</button>
                                     </form>
 
-                                    <button class="navbar-nav btn btn-info" onclick="getLikeCount(@x.Id,event)">Like(@x.likeCount)</button>
+                                    @if (Session["user"] != null) { 
+                                        <button class="navbar-nav btn btn-info" onclick="getLikeCount(@x.Id,@x.likeCount,event)">Like(@x.likeCount)</button>
+                                    }
                                     
                                     <form method="post" action="../client/addToPlaylist?id=@x.Id" class="navbar-nav" style="margin-right:3px">
                                         <button class="btn btn-danger" id="addToPlaylist">Add to playlist</button>

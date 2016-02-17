@@ -5,9 +5,12 @@
         $("#"+idOfCommentBox).fadeToggle("fast");
     }
     
-    function getLikeCount(y,e){
+    function getLikeCount(y,likeCount,e){
         $.getJSON("../client/likeMusic?id=" + y ,function (x) {
-            alert("liked");
+            if(likeCount != x)
+                alert("liked");
+            else
+                alert("you have already liked");
             e.target.innerHTML = "Like("+x+")";
         });
     }

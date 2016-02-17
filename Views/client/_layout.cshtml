@@ -52,10 +52,13 @@
                         dataToAppend +=        "<div class='navbar-form pull-right'>";
                         dataToAppend +=            "<form method='get' action='"+listOfMusic[i].storagePath+"' class='navbar-nav' style='margin-right:3px'>";
                         dataToAppend +=                "<button class='btn btn-warning' id='download'>Download</button>";
-                        dataToAppend +=            "</form>"
+                        dataToAppend += "</form>";
 
-                        dataToAppend +=            "<button class='navbar-nav btn btn-info' onclick='getLikeCount("+listOfMusic[i].Id+",event)'>Like("+listOfMusic[i].likeCount+")</button>";
-                    
+                         @if (Session["user"] != null) { <text>
+                                        dataToAppend +=            "<button class='navbar-nav btn btn-info' onclick='getLikeCount("+listOfMusic[i].Id+","+listOfMusic[i].likeCount+",event)'>Like("+listOfMusic[i].likeCount+")</button>";
+                                    </text>
+                         }
+                         
                         dataToAppend +=            "<form method='post' action='addToPlaylist?id="+listOfMusic[i].Id+"' class='navbar-nav' style='margin-right:3px'>";
                         dataToAppend +=                "<button class='btn btn-danger' id='addToPlaylist' type='submit'>Add to playlist</button>";
                         dataToAppend +=            "</form>";
@@ -79,19 +82,19 @@
     </script>
 
 </head>
-<body>
+<body style="background-color: #F0FFF0;" >
     <nav class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
-            <label class="navbar-brand">Music Paradise</label>
+            <label class="navbar-brand" onclick="window.location.assign('/Home/welcomeHome')">Music Paradise</label>
         </div>
         <form method="post" action="/client/searchResults" class="navbar-form navbar-left" role="search">
             <div class="form-group">
-                <input class="form-control" placeholder="Search" name="musicsearch" id="search"/>
+                <input class="form-control" placeholder="Search" name="musicsearch" id="search" />
             </div>
             <select name="category" class="btn btn-default">
                 @foreach (string s in ViewBag.categories)
                 {
-                    <option>@s</option> 
+                    <option>@s</option>
                 }
             </select>
             <button type="submit" class="btn btn-danger" id="btn_search">Search</button>
@@ -100,7 +103,7 @@
             <select name="singers" class="btn btn-default" id="singers">
                 @foreach (string s in ViewBag.singers)
                 {
-                    <option>@s</option> 
+                    <option>@s</option>
                 }
             </select>
             <button class="btn btn-danger" id="btn_search_bySinger">Search</button>
@@ -113,19 +116,21 @@
         </div>
     </nav>
 
+    <!--
     <div style="height:5px;background-image:url('../../Content/data1/images/loginInfoImage.gif')">
 
     </div>
+        -->
 
     <div id="slider">
     </div>
 
-    <div class="row" style="margin-bottom: 10px;background-image:url('../../Content/data1/images/loginInfoImage.gif');border-style:groove;">
+    <div class="row" style="margin-bottom: 10px;">
         <div class="col-md-3" id="userPic" style="margin-top:1%;">
             <center>
-                <img id="userPicImg" alt="pic not found" 
-                    style="height:100px;border-color:white;border:solid;border-radius:5px" 
-                    src="../..@(((FinalProject_EAD.Models.userLogin)Session["user"]).picPath)"/>
+                <img id="userPicImg" alt="pic not found"
+                     style="height:100px;border-color:white;border-radius:5px"
+                     src="../..@(((FinalProject_EAD.Models.userLogin)Session["user"]).picPath)" />
             </center>
 
             <center>
@@ -148,14 +153,14 @@
                 </li>
             </ul>
         </div>
-        
+
         <div class="col-md-9" id="showResultsAndPlaylistBody">
             <ul class="list-group " id="showResultsAndPlaylistBodyUl">
                 @RenderBody()
             </ul>
         </div>
     </div>
-        
-    <footer class="modal-footer" style="font-size:medium">&copy; copyright 2015</footer>
+
+    <footer class="modal-footer" style="font-size: medium; background-color: #E6E6FA; ">&copy; copyright 2015</footer>
 </body>
 </html>
